@@ -22,16 +22,16 @@ namespace BankingSystemApp
                 Console.WriteLine("6. <your 1st custom service - choose a name>");
                 Console.WriteLine("7. <your 2nd custom service - choose a name>");
                 Console.WriteLine("8. Exit");
-                
+
                 Console.Write("Choose an option: ");
-                
+
                 int choice;
 
                 try
                 {
                     choice = int.Parse(Console.ReadLine());
                 }
-                  catch (Exception)  
+                catch (Exception)
                 {
                     Console.WriteLine("Invalid input. Please enter a number from 1 to 8.");
                     continue; // skip the rest of this loop pass, show the menu again
@@ -48,10 +48,10 @@ namespace BankingSystemApp
                         WithdrawMoney();
                         break;
                     case 4:
-                        ShowBalance();
+                        //ShowBalance();
                         break;
                     case 5:
-                        TransferAmount();
+                      //  TransferAmount();
                         break;
                     case 6:
                         // TODO: call your first custom service function here
@@ -105,7 +105,7 @@ namespace BankingSystemApp
             catch
             {
                 Console.WriteLine("Invalid amount.");
-                return;          
+                return;
             }
 
             // Add the new account details to the shared lists:
@@ -114,6 +114,9 @@ namespace BankingSystemApp
             balances.Add(initialBalance);
             Console.WriteLine("Account created successfully!");
         }
+
+        /// //////////////////////////////////////////////////////////////////
+
         static void DepositMoney()
         {
             Console.Write("Enter the account number:");
@@ -122,7 +125,7 @@ namespace BankingSystemApp
             //Find the account position in the list:
             int index = accountNumbers.IndexOf(accountNumber);
 
-            if(index == -1)
+            if (index == -1)
             {
                 Console.WriteLine("Account not found.");
                 return;
@@ -148,27 +151,72 @@ namespace BankingSystemApp
                 return;
 
             }
-            
-            // Update the balance using the same account index:
-                balances[index] += amount;
 
-                Console.WriteLine("Deposite Successful.");
-                Console.WriteLine("New Balance: " + balances[index]);
-            
+            // Update the balance using the same account index:
+            balances[index] += amount;
+
+            Console.WriteLine("Deposite Successful.");
+            Console.WriteLine("New Balance: " + balances[index]);
+
         }
+
+        /// //////////////////////////////////////////////////////////////////
+
         static void WithdrawMoney()
         {
-            // TODO: implement this service (see Section 3 requirements)
+            Console.Write("Enter the account number:");
+            string accountNumber = Console.ReadLine();
+
+            int index = accountNumbers.IndexOf(accountNumber);
+
+            // Checking if the account exits or not:
+            if (index == -1)
+            {
+                Console.WriteLine("Account not found.");
+                return;
+            }
+
+            double amount;
+
+            try
+            {
+                Console.Write("Enter the withdraw amount: ");
+                amount = double.Parse(Console.ReadLine());
+                if (amount <= 0)
+                {
+                    Console.WriteLine("Withdraw amount must be positive.");
+                    return;
+                }
+
+                if (amount > balances[index])
+                {
+                    Console.WriteLine("Insufficient balance.");
+                    return;
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Invalid amount.");
+                return;
+            }
+
+            // Subtract:
+            balances[index] -= amount;
+
+            // Printing the balance after withdraw
+            Console.WriteLine("Your balance now is : " +amount);
+
+            static void ShowBalance()
+            {
+                // TODO: implement this service (see Section 3 requirements)
+            }
+            static void TransferAmount()
+            {
+                // TODO: implement this service (see Section 3 requirements)
+            }
+            // TODO: write two more void, no-parameter functions here for
+            // your own custom services (option 6 and option 7)
         }
-        static void ShowBalance()
-        {
-            // TODO: implement this service (see Section 3 requirements)
-        }
-        static void TransferAmount()
-        {
-            // TODO: implement this service (see Section 3 requirements)
-        }
-        // TODO: write two more void, no-parameter functions here for
-        // your own custom services (option 6 and option 7)
     }
 }
