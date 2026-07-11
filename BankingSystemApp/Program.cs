@@ -48,13 +48,13 @@ namespace BankingSystemApp
                         WithdrawMoney();
                         break;
                     case 4:
-                        //ShowBalance();
+                        ShowBalance();
                         break;
                     case 5:
-                      //  TransferAmount();
+                        //TransferAmount();
                         break;
                     case 6:
-                        // TODO: call your first custom service function here
+                        //TODO: call your first custom service function here
                         break;
                     case 7:
                         // TODO: call your second custom service function here
@@ -223,19 +223,76 @@ namespace BankingSystemApp
                     Console.WriteLine("Account not found.");
                     return;
                 }
+                else
+                {
+                    Console.WriteLine("\n===== Account Details =====");
+                    Console.WriteLine("Customer Name: " + customerNames[index]);
+                    Console.WriteLine("Account Number: " + accountNumbers[index]);
+                    Console.WriteLine("Balance: " + balances[index]);
 
-
-                Console.WriteLine("\n===== Account Details =====");
-                Console.WriteLine("Customer Name: " + customerNames[index]);
-                Console.WriteLine("Account Number: " + accountNumbers[index]);
-                Console.WriteLine("Balance: " + balances[index]);
+                }
             }
-
+            
         
             static void TransferAmount()
             {
-                // TODO: implement this service (see Section 3 requirements)
-            }
+                Console.Write("Enter sender account number: ");
+                string sender = Console.ReadLine();
+
+
+                Console.Write("Enter receiver account number: ");
+                string receiver = Console.ReadLine();
+
+
+                int senderIndex = accountNumbers.IndexOf(sender);
+                int receiverIndex = accountNumbers.IndexOf(receiver);
+
+
+                if (senderIndex == -1 || receiverIndex == -1)
+                {
+                    Console.WriteLine("One or both accounts do not exist.");
+                    return;
+                }
+
+
+                double amount;
+
+
+                try
+                {
+                    Console.Write("Enter transfer amount: ");
+                    amount = double.Parse(Console.ReadLine());
+
+
+                    if (amount <= 0)
+                    {
+                        Console.WriteLine("Amount must be positive.");
+                        return;
+                    }
+
+
+                    if (amount > balances[senderIndex])
+                    {
+                        Console.WriteLine("Sender does not have enough balance.");
+                        return;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid amount.");
+                    return;
+                }
+
+
+                balances[senderIndex] -= amount;
+                balances[receiverIndex] += amount;
+
+
+                Console.WriteLine("Transfer completed successfully.");
+                Console.WriteLine("Sender Balance: " + balances[senderIndex]);
+                Console.WriteLine("Receiver Balance: " + balances[receiverIndex]);
+            
+        }
             // TODO: write two more void, no-parameter functions here for
             // your own custom services (option 6 and option 7)
         }
