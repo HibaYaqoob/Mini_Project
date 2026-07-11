@@ -321,27 +321,28 @@ namespace BankingSystemApp
 
         ////////////////////////////////////////////////////////////////////////////////////////
 
-        // Custom Service 2: Search for an account by account number
-
-        static void SearchCustomerAccount() { 
-        
-            Console.Write("Enter the account number to search: ");
+        // Custom Service 2: Search account by account number
+        static void SearchCustomerAccount()
+        {
+            Console.Write("Enter account number to search: ");
             string accountNumber = Console.ReadLine();
 
-            int index = accountNumber.IndexOf(accountNumber);
+            int index = accountNumbers.IndexOf(accountNumber);
 
             if (index == -1)
             {
                 Console.WriteLine("Account not found.");
                 return;
             }
-
-            Console.WriteLine("\n===== Account Found Details ====="); 
-            Console.WriteLine("Customer Name: " + customerNames[index]);
-            Console.WriteLine("Account Number: " + accountNumbers[index]);
-            Console.WriteLine("Balance: " + balances[index]);
+            else
+            {
 
 
+                Console.WriteLine("\n===== Account Found =====");
+                Console.WriteLine("Customer Name: " + customerNames[index]);
+                Console.WriteLine("Account Number: " + accountNumbers[index]);
+                Console.WriteLine("Balance: " + balances[index]);
+            }
         }
     }
 }
