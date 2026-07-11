@@ -51,7 +51,7 @@ namespace BankingSystemApp
                         ShowBalance();
                         break;
                     case 5:
-                        //TransferAmount();
+                        TransferAmount();
                         break;
                     case 6:
                         //TODO: call your first custom service function here
@@ -205,8 +205,8 @@ namespace BankingSystemApp
             balances[index] -= amount;
 
             // Printing the balance after withdraw
-            Console.WriteLine("Your balance now is : " +amount);
-
+            Console.WriteLine("Your balance now is : " + amount);
+        }
             /////////////////////////////////////////////////////////////////
 
             static void ShowBalance()
@@ -297,4 +297,3 @@ namespace BankingSystemApp
             // your own custom services (option 6 and option 7)
         }
     }
-}
