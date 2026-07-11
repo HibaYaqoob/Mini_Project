@@ -166,52 +166,94 @@ namespace BankingSystemApp
 
         static void WithdrawMoney()
         {
-            Console.Write("Enter the account number:");
+            Console.Write("Enter the account number: ");
             string accountNumber = Console.ReadLine();
 
             int index = accountNumbers.IndexOf(accountNumber);
 
-            // Checking if the account exits or not:
+            // Checking if the account exists or not
             if (index == -1)
             {
                 Console.WriteLine("Account not found.");
                 return;
             }
 
-            double amount;
-
-            try
+            Console.Write("Enter the withdraw amount: ");
+            static void WithdrawMoney()
             {
+                Console.Write("Enter the account number: ");
+                string accountNumber = Console.ReadLine();
+
+                int index = accountNumbers.IndexOf(accountNumber);
+
+                // Checking if the account exists
+                if (index == -1)
+                {
+                    Console.WriteLine("Account not found.");
+                    return;
+                }
+
                 Console.Write("Enter the withdraw amount: ");
-                amount = double.Parse(Console.ReadLine());
+                double amount;
+
+                if (!double.TryParse(Console.ReadLine(), out amount))
+                {
+                    Console.WriteLine("Please enter a valid number.");
+                    return;
+                }
+
                 if (amount <= 0)
                 {
-                    Console.WriteLine("Withdraw amount must be positive.");
+                    Console.WriteLine("Withdrawal amount must be greater than zero.");
                     return;
                 }
 
                 if (amount > balances[index])
                 {
-                    Console.WriteLine("Insufficient balance.");
+                    Console.WriteLine("Withdrawal failed. Your balance is not enough.");
+                    Console.WriteLine("Available balance: " + balances[index]);
                     return;
                 }
 
+                balances[index] -= amount;
+
+                Console.WriteLine("Withdrawal completed successfully.");
+                Console.WriteLine("Withdrawn amount: " + amount);
+                Console.WriteLine("Remaining balance: " + balances[index]);
             }
-            catch
+            double amount;
+
+            // Check if the input is a valid number
+            if (!double.TryParse(Console.ReadLine(), out amount))
             {
                 Console.WriteLine("Invalid amount.");
                 return;
             }
 
-            // Subtract:
+            // Check if amount is negative or zero
+            if (amount <= 0)
+            {
+                Console.WriteLine("Withdraw amount must be positive.");
+                return;
+            }
+
+            // Check if amount is more than the balance
+            if (amount > balances[index])
+            {
+                Console.WriteLine("Insufficient balance. You cannot withdraw more than " + balances[index]);
+                return;
+            }
+
+            // Withdraw money
             balances[index] -= amount;
 
-            // Printing the balance after withdraw
-            Console.WriteLine("Your balance now is : " + amount);
+            // Display remaining balance
+            Console.WriteLine("Withdrawal successful.");
+            Console.WriteLine("Your remaining balance is: " + balances[index]);
         }
-            /////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////
 
-            static void ShowBalance()
+        static void ShowBalance()
             {
                 Console.Write("Enter account number: ");
                 string accountNumber = Console.ReadLine();
