@@ -207,10 +207,31 @@ namespace BankingSystemApp
             // Printing the balance after withdraw
             Console.WriteLine("Your balance now is : " +amount);
 
+            /////////////////////////////////////////////////////////////////
+
             static void ShowBalance()
             {
-                // TODO: implement this service (see Section 3 requirements)
+                Console.Write("Enter account number: ");
+                string accountNumber = Console.ReadLine();
+
+
+                int index = accountNumbers.IndexOf(accountNumber);
+
+
+                if (index == -1)
+                {
+                    Console.WriteLine("Account not found.");
+                    return;
+                }
+
+
+                Console.WriteLine("\n===== Account Details =====");
+                Console.WriteLine("Customer Name: " + customerNames[index]);
+                Console.WriteLine("Account Number: " + accountNumbers[index]);
+                Console.WriteLine("Balance: " + balances[index]);
             }
+
+        
             static void TransferAmount()
             {
                 // TODO: implement this service (see Section 3 requirements)
