@@ -1,4 +1,6 @@
 ﻿
+using System.Security.Principal;
+
 namespace BankingSystemApp
 {
     internal class Program
@@ -20,7 +22,7 @@ namespace BankingSystemApp
                 Console.WriteLine("4. Show Balance");
                 Console.WriteLine("5. Transfer Amount");
                 Console.WriteLine("6. Display All Accounts");
-                Console.WriteLine("7. <your 2nd custom service - choose a name>");
+                Console.WriteLine("7. Search Customer Account");
                 Console.WriteLine("8. Exit");
 
                 Console.Write("Choose an option: ");
@@ -57,7 +59,7 @@ namespace BankingSystemApp
                         DisplayAllAccounts();
                         break;
                     case 7:
-                        // TODO: call your second custom service function here
+                        SearchCustomerAccount();                        
                         break;
                     case 8:
                         exitApp = true;
@@ -293,6 +295,10 @@ namespace BankingSystemApp
                 Console.WriteLine("Receiver Balance: " + balances[receiverIndex]);
             
         }
+
+       
+        /// ////////////////////////////////////////////////////////////////////////////////////
+        
         // Custom Service 1: Display all bank accounts
         static void DisplayAllAccounts()
         {
@@ -312,5 +318,30 @@ namespace BankingSystemApp
                 Console.WriteLine("-----------------------------");
             }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // Custom Service 2: Search for an account by account number
+
+        static void SearchCustomerAccount() { 
+        
+            Console.Write("Enter the account number to search: ");
+            string accountNumber = Console.ReadLine();
+
+            int index = accountNumber.IndexOf(accountNumber);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Account not found.");
+                return;
+            }
+
+            Console.WriteLine("\n===== Account Found Details ====="); 
+            Console.WriteLine("Customer Name: " + customerNames[index]);
+            Console.WriteLine("Account Number: " + accountNumbers[index]);
+            Console.WriteLine("Balance: " + balances[index]);
+
+
+        }
     }
-    }
+}
